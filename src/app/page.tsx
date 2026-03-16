@@ -15,7 +15,6 @@ const avgOccupancy = totalCapacity > 0 ? Math.round((totalAttendance / totalCapa
 const uniqueCities = Array.from(new Set(avmReferences.map(r => r.city))).length;
 
 export default async function HomePage() {
-  const completedRef = completedRefs[0]; // İlk tamamlanan referans
   const plannedRef = plannedRefs[0]; // İlk planlanan referans
 
   return (
