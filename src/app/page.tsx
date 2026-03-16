@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { avmReferences, showInfo, getCompletedReferences, getPlannedReferences } from '@/data/avm';
 import GalleryPreview from '@/components/GalleryPreview';
+import AnimatedCounter from '@/components/AnimatedCounter';
+import EventTimeline from '@/components/EventTimeline';
+import Testimonials from '@/components/Testimonials';
 
 // İstatistikleri hesapla
 const completedRefs = getCompletedReferences();
@@ -79,19 +82,27 @@ export default async function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
-              <p className="text-4xl md:text-5xl font-black text-amber-400">{totalAttendance.toLocaleString('tr-TR')}</p>
+              <p className="text-4xl md:text-5xl font-black text-amber-400">
+                <AnimatedCounter target={totalAttendance} />
+              </p>
               <p className="text-sm text-gray-400 mt-1">Toplam Katılım</p>
             </div>
             <div>
-              <p className="text-4xl md:text-5xl font-black text-white">{uniqueCities}</p>
+              <p className="text-4xl md:text-5xl font-black text-white">
+                <AnimatedCounter target={uniqueCities} duration={1000} />
+              </p>
               <p className="text-sm text-gray-400 mt-1">Şehir</p>
             </div>
             <div>
-              <p className="text-4xl md:text-5xl font-black text-amber-400">%{avgOccupancy}</p>
+              <p className="text-4xl md:text-5xl font-black text-amber-400">
+                <AnimatedCounter target={avgOccupancy} prefix="%" duration={1500} />
+              </p>
               <p className="text-sm text-gray-400 mt-1">Ort. Doluluk</p>
             </div>
             <div>
-              <p className="text-4xl md:text-5xl font-black text-white">{avmReferences.length}</p>
+              <p className="text-4xl md:text-5xl font-black text-white">
+                <AnimatedCounter target={avmReferences.length} duration={1000} />
+              </p>
               <p className="text-sm text-gray-400 mt-1">AVM Referansı</p>
             </div>
           </div>
@@ -170,59 +181,58 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Event Timeline */}
+      <EventTimeline />
+
       {/* Gallery Preview */}
       <GalleryPreview />
 
-      {/* Karabük Reference - Big Impact */}
-      {completedRef && (
-        <section className="py-16 bg-gray-900 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/images/hero/buzul-ekspresi.jpg')] bg-cover bg-center opacity-20" />
-          <div className="relative container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                  <p className="text-amber-400 font-bold text-sm uppercase tracking-wider mb-3">Başarı Hikayesi</p>
-                  <h2 className="text-4xl md:text-5xl font-black mb-6">
-                    Karabük&apos;te<br />
-                    <span className="text-amber-400">Büyük İlgi</span>
-                  </h2>
-                  <p className="text-xl text-gray-300 mb-6">
-                    {completedRef.culturalCenter}&apos;nde gerçekleştirdiğimiz gösterimiz,
-                    <strong className="text-white"> {completedRef.capacity} kişilik salonda {completedRef.attendance} katılımla</strong> büyük beğeni topladı.
-                  </p>
-                  <ul className="space-y-3">
-                    <li className="flex items-center gap-3">
-                      <svg className="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span className="text-lg">{completedRef.avm} iş birliği</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <svg className="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span className="text-lg">%90 doluluk oranı</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <svg className="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span className="text-lg">2 seans, tam kapasite</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="text-center">
-                  <div className="inline-block bg-white/10 backdrop-blur-sm rounded-3xl p-10 border border-white/20">
-                    <p className="text-8xl md:text-9xl font-black text-amber-400">{completedRef.attendance}</p>
-                    <p className="text-2xl text-white mt-2">Mutlu Çocuk</p>
-                    <p className="text-gray-400 mt-1">{completedRef.date} • {completedRef.time}</p>
+      {/* Başarı Hikayeleri */}
+      <section className="py-16 bg-gray-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/images/hero/buzul-ekspresi.jpg')] bg-cover bg-center opacity-20" />
+        <div className="relative container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-amber-400 font-bold text-sm uppercase tracking-wider mb-3">Başarı Hikayelerimiz</p>
+              <h2 className="text-4xl md:text-5xl font-black">
+                Her Şehirde <span className="text-amber-400">Büyük İlgi</span>
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {completedRefs.filter(r => r.attendance).map((ref) => (
+                <div key={ref.id} className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 hover:border-amber-400/50 transition-all">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="text-2xl font-black">{ref.city}</h3>
+                      <p className="text-gray-400 text-sm">{ref.culturalCenter}</p>
+                    </div>
+                    <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1 rounded-full">
+                      Tamamlandı
+                    </span>
+                  </div>
+                  <div className="flex items-end gap-4 mb-4">
+                    <p className="text-6xl font-black text-amber-400">{ref.attendance}</p>
+                    <p className="text-gray-300 pb-2">çocuk katıldı</p>
+                  </div>
+                  <div className="flex flex-wrap gap-3 text-sm">
+                    <span className="bg-white/10 px-3 py-1 rounded-full">{ref.avm} iş birliği</span>
+                    <span className="bg-white/10 px-3 py-1 rounded-full">{ref.date}</span>
+                    {ref.capacity && (
+                      <span className="bg-white/10 px-3 py-1 rounded-full">
+                        %{Math.round(((ref.attendance || 0) / ref.capacity) * 100)} doluluk
+                      </span>
+                    )}
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <Testimonials />
 
       {/* How It Works */}
       <section className="py-16 bg-white">
