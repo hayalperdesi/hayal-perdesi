@@ -4,6 +4,7 @@ import GalleryPreview from '@/components/GalleryPreview';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import EventTimeline from '@/components/EventTimeline';
 import Testimonials from '@/components/Testimonials';
+import Countdown from '@/components/Countdown';
 
 // İstatistikleri hesapla
 const completedRefs = getCompletedReferences();
@@ -75,6 +76,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Countdown */}
+      <Countdown />
 
       {/* Achievement Bar */}
       <section className="bg-gray-900 text-white py-8">

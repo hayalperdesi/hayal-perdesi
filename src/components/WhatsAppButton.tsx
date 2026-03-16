@@ -3,11 +3,9 @@
 import { useState } from 'react';
 
 const WHATSAPP_NUMBER = '905321770637';
-const DEFAULT_MESSAGE = `Merhaba, Hayal Perdesi için bilet almak istiyorum.
-Şehir:
-Etkinlik:
+const DEFAULT_MESSAGE = `Merhaba, Buzul Ekspresi Kastamonu gösterisi için bilet almak istiyorum.
 Kişi sayısı:
-AVM/Kültür Merkezi:`;
+Not:`;
 
 interface WhatsAppButtonProps {
   message?: string;
